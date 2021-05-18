@@ -32,6 +32,5 @@ class MyApplication: Application(){
             .addCallback(EmptyCallback())//空
             .setDefaultCallback(SuccessCallback::class.java)//设置默认加载状态页
             .commit()
-
     }
 }
