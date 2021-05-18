@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="click"
+            type="com.example.navigationdemo.ui.fragment.home.homepage.HomePageFragment.ProxyClick" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/btn_Insert"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="增加"
+            android:onClick="@{()->click.add()}"
+            app:layout_constraintEnd_toStartOf="@+id/btn_Delete"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <Button
+            android:id="@+id/btn_Delete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="删除"
+            android:onClick="@{()->click.delete()}"
+            app:layout_constraintEnd_toStartOf="@+id/btn_Update"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_Insert" />
+
+        <Button
+            android:id="@+id/btn_Update"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="修改"
+            android:onClick="@{()->click.update()}"
+            app:layout_constraintEnd_toStartOf="@+id/btn_Query"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_Delete" />
+
+        <Button
+            android:id="@+id/btn_Query"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="查询"
+            android:onClick="@{()->click.query()}"
+            app:layout_constraintEnd_toStartOf="@+id/btn_Clear"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_Update" />
+
+        <Button
+            android:id="@+id/btn_Clear"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="清空"
+            android:onClick="@{()->click.clear()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/btn_Query" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/recycler_Home"
+            app:layout_constraintVertical_weight="1"
+            app:layout_constraintTop_toBottomOf="@+id/btn_Insert"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

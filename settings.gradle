@@ -1,0 +1,3 @@
+include ':lib_framework'
+rootProject.name='NavigationDemo'
+include ':app'

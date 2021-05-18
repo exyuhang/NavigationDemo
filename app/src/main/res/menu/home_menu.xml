@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:icon="@drawable/home_normal"
+        android:id="@+id/home_homepage"
+        android:title="首页"/>
+
+    <item
+        android:icon="@drawable/radio_normal"
+        android:id="@+id/home_radio"
+        android:title="电台"/>
+
+    <item
+        android:icon="@drawable/message_normal"
+        android:id="@+id/home_message"
+        android:title="消息"/>
+
+    <item
+        android:icon="@drawable/my_normal"
+        android:id="@+id/home_my"
+        android:title="我的"/>
+</menu>
