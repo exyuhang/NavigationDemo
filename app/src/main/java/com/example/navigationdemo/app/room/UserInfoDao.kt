@@ -11,16 +11,16 @@ import androidx.room.*
 @Dao
 interface UserInfoDao {
     @Insert
-    fun insertUserInfo(vararg userInfo: UserInfo)
+    suspend fun insertUserInfo(vararg userInfo: UserInfo)
 
     @Update
-    fun updateUserInfo(vararg userInfo: UserInfo)
+    suspend fun updateUserInfo(vararg userInfo: UserInfo)
 
     @Delete
-    fun deleteUserInfo(vararg userInfo: UserInfo)
+    suspend fun deleteUserInfo(vararg userInfo: UserInfo)
 
     @Query("DELETE FROM USER_INFO")
-    fun deleteAllUserInfo()
+    suspend fun deleteAllUserInfo()
 
     @Query("SELECT * FROM USER_INFO ORDER BY ID DESC")
     fun getAllUserInfo(): LiveData<List<UserInfo>>

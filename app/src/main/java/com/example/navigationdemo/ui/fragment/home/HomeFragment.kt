@@ -13,19 +13,15 @@ import com.example.navigationdemo.databinding.FragmentHomeBinding
  * 上传git
  * 2020/12/16 9:30 AM
  */
-class HomeFragment: BaseFragment<BaseViewModel, FragmentHomeBinding>(){
+class HomeFragment : BaseFragment<BaseViewModel, FragmentHomeBinding>() {
 
     override fun getLayoutId(): Int = R.layout.fragment_home
 
     override fun initView(rootView: View) {
         super.initView(rootView)
-        var navHostFragment =
-            childFragmentManager?.findFragmentById(R.id.fv_Home) as NavHostFragment
-        mViewBind.bvHome.setupWithNavController(navHostFragment.navController)
-    }
-
-    override fun lazyLoadData() {
-
+        (childFragmentManager?.findFragmentById(R.id.fv_Home) as NavHostFragment).apply {
+            mViewBind.bvHome.setupWithNavController(navController)
+        }
     }
 
 

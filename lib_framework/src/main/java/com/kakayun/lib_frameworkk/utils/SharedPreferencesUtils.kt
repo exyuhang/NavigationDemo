@@ -1,31 +1,31 @@
-package com.kakayun.lib_frameworkk.utils;
+package com.kakayun.lib_frameworkk.utils
 
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.annotation.SuppressLint
+import android.content.Context
 
 /**
  * 基于一个Android比较方便存储系统
  */
-public class SharedPreferencesUtils {
-
+@SuppressLint("StaticFieldLeak")
+object SharedPreferencesUtils {
     /**
      * 上下文
      */
-    private static Context mContext;
+    private lateinit var mContext: Context
 
     /**
      * 初始化SharedPreferences，必须使用该方法
      */
-    public static void init(Context context) {
-        mContext = context;
+    fun init(context: Context) {
+        mContext = context
     }
 
     /**
      * 抛出异常
      */
-    private static void throwInit() {
+    private fun throwInit() {
         if (mContext == null) {
-            throw new NullPointerException("在使用该方法前，需要使用init()方法，推荐将init()放入Application中");
+            throw NullPointerException("在使用该方法前，需要使用init()方法，推荐将init()放入Application中")
         }
     }
 
@@ -36,12 +36,12 @@ public class SharedPreferencesUtils {
      * @param key   key
      * @param value 值
      */
-    public static void putString(String name, String key, String value) {
-        throwInit();
-        SharedPreferences sp = mContext.getSharedPreferences(name, Context.MODE_PRIVATE);
-        SharedPreferences.Editor edit = sp.edit();
-        edit.putString(key, value);
-        edit.apply();
+    fun putString(name: String, key: String, value: String) {
+        throwInit()
+        val sp = mContext.getSharedPreferences(name, Context.MODE_PRIVATE)
+        val edit = sp.edit()
+        edit.putString(key, value)
+        edit.apply()
     }
 
     /**
@@ -52,10 +52,10 @@ public class SharedPreferencesUtils {
      * @param defaultValue 没获取到时的默认值
      * @return 字符串
      */
-    public static String getString(String name, String key, String defaultValue) {
-        throwInit();
-        SharedPreferences sp = mContext.getSharedPreferences(name, Context.MODE_PRIVATE);
-        return sp.getString(key, defaultValue);
+    fun getString(name: String, key: String, defaultValue: String): String {
+        throwInit()
+        val sp = mContext.getSharedPreferences(name, Context.MODE_PRIVATE)
+        return sp.getString(key, defaultValue)?:""
     }
 
     /**
@@ -65,12 +65,12 @@ public class SharedPreferencesUtils {
      * @param key   key
      * @param value 值
      */
-    public static void putInt(String name, String key, int value) {
-        throwInit();
-        SharedPreferences sp = mContext.getSharedPreferences(name, Context.MODE_PRIVATE);
-        SharedPreferences.Editor edit = sp.edit();
-        edit.putInt(key, value);
-        edit.apply();
+    fun putInt(name: String, key: String, value: Int) {
+        throwInit()
+        val sp = mContext.getSharedPreferences(name, Context.MODE_PRIVATE)
+        val edit = sp.edit()
+        edit.putInt(key, value)
+        edit.apply()
     }
 
     /**
@@ -81,10 +81,10 @@ public class SharedPreferencesUtils {
      * @param defaultValue 没获取到时的默认值
      * @return 整型
      */
-    public static int getInt(String name, String key, int defaultValue) {
-        throwInit();
-        SharedPreferences sp = mContext.getSharedPreferences(name, Context.MODE_PRIVATE);
-        return sp.getInt(key, defaultValue);
+    fun getInt(name: String, key: String, defaultValue: Int): Int {
+        throwInit()
+        val sp = mContext.getSharedPreferences(name, Context.MODE_PRIVATE)
+        return sp.getInt(key, defaultValue)
     }
 
     /**
@@ -94,12 +94,12 @@ public class SharedPreferencesUtils {
      * @param key   key
      * @param value 值
      */
-    public static void putFloat(String name, String key, float value) {
-        throwInit();
-        SharedPreferences sp = mContext.getSharedPreferences(name, Context.MODE_PRIVATE);
-        SharedPreferences.Editor edit = sp.edit();
-        edit.putFloat(key, value);
-        edit.apply();
+    fun putFloat(name: String, key: String, value: Float) {
+        throwInit()
+        val sp = mContext.getSharedPreferences(name, Context.MODE_PRIVATE)
+        val edit = sp.edit()
+        edit.putFloat(key, value)
+        edit.apply()
     }
 
     /**
@@ -110,10 +110,10 @@ public class SharedPreferencesUtils {
      * @param defaultValue 没获取到时的默认值
      * @return 浮点型
      */
-    public static float getFloat(String name, String key, float defaultValue) {
-        throwInit();
-        SharedPreferences sp = mContext.getSharedPreferences(name, Context.MODE_PRIVATE);
-        return sp.getFloat(key, defaultValue);
+    fun getFloat(name: String, key: String, defaultValue: Float): Float {
+        throwInit()
+        val sp = mContext.getSharedPreferences(name, Context.MODE_PRIVATE)
+        return sp.getFloat(key, defaultValue)
     }
 
     /**
@@ -123,12 +123,12 @@ public class SharedPreferencesUtils {
      * @param key   key
      * @param value 值
      */
-    public static void putLong(String name, String key, long value) {
-        throwInit();
-        SharedPreferences sp = mContext.getSharedPreferences(name, Context.MODE_PRIVATE);
-        SharedPreferences.Editor edit = sp.edit();
-        edit.putLong(key, value);
-        edit.apply();
+    fun putLong(name: String, key: String, value: Long) {
+        throwInit()
+        val sp = mContext.getSharedPreferences(name, Context.MODE_PRIVATE)
+        val edit = sp.edit()
+        edit.putLong(key, value)
+        edit.apply()
     }
 
     /**
@@ -139,10 +139,10 @@ public class SharedPreferencesUtils {
      * @param defaultValue 没获取到时的默认值
      * @return 长整型
      */
-    public static float getLong(String name, String key, long defaultValue) {
-        throwInit();
-        SharedPreferences sp = mContext.getSharedPreferences(name, Context.MODE_PRIVATE);
-        return sp.getLong(key, defaultValue);
+    fun getLong(name: String, key: String, defaultValue: Long): Float {
+        throwInit()
+        val sp = mContext.getSharedPreferences(name, Context.MODE_PRIVATE)
+        return sp.getLong(key, defaultValue).toFloat()
     }
 
     /**
@@ -152,12 +152,12 @@ public class SharedPreferencesUtils {
      * @param key   key
      * @param value 值
      */
-    public static void putBoolean(String name, String key, boolean value) {
-        throwInit();
-        SharedPreferences sp = mContext.getSharedPreferences(name, Context.MODE_PRIVATE);
-        SharedPreferences.Editor edit = sp.edit();
-        edit.putBoolean(key, value);
-        edit.apply();
+    fun putBoolean(name: String, key: String, value: Boolean) {
+        throwInit()
+        val sp = mContext.getSharedPreferences(name, Context.MODE_PRIVATE)
+        val edit = sp.edit()
+        edit.putBoolean(key, value)
+        edit.apply()
     }
 
     /**
@@ -168,21 +168,20 @@ public class SharedPreferencesUtils {
      * @param defaultValue 没获取到时的默认值
      * @return 布尔型
      */
-    public static boolean getBoolean(String name, String key, boolean defaultValue) {
-        throwInit();
-        SharedPreferences sp = mContext.getSharedPreferences(name, Context.MODE_PRIVATE);
-        return sp.getBoolean(key, defaultValue);
+    fun getBoolean(name: String, key: String, defaultValue: Boolean): Boolean {
+        throwInit()
+        val sp = mContext.getSharedPreferences(name, Context.MODE_PRIVATE)
+        return sp.getBoolean(key, defaultValue)
     }
 
     /**
      * 清除数据
      */
-    public static void clearData(String name){
-        throwInit();
-        SharedPreferences sp = mContext.getSharedPreferences(name, Context.MODE_PRIVATE);
-        SharedPreferences.Editor edit = sp.edit();
-        edit.clear();
-        edit.apply();
+    fun clearData(name: String) {
+        throwInit()
+        val sp = mContext.getSharedPreferences(name, Context.MODE_PRIVATE)
+        val edit = sp.edit()
+        edit.clear()
+        edit.apply()
     }
-
 }

@@ -1,10 +1,12 @@
 package com.example.navigationdemo.viewmodel
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.viewModelScope
 import com.example.navigationdemo.app.MyApplication
 import com.kakayun.lib_frameworkk.base.BaseViewModel
 import com.example.navigationdemo.app.room.UserInfo
 import com.example.navigationdemo.data.repository.LocalRepository
+import kotlinx.coroutines.launch
 
 /**
  * Created by YuHang
@@ -23,19 +25,27 @@ class HomeViewModel : BaseViewModel() {
     }
 
     fun insertUserInfo(vararg userInfo: UserInfo) {
-        homeRepository.insertUserInfo(*userInfo)
+        viewModelScope.launch {
+            homeRepository.insertUserInfo(*userInfo)
+        }
     }
 
     fun deleteUserInfo(vararg userInfo: UserInfo) {
-        homeRepository.deleteUserInfo(*userInfo)
+        viewModelScope.launch {
+            homeRepository.deleteUserInfo(*userInfo)
+        }
     }
 
     fun updateUserInfo(vararg userInfo: UserInfo) {
-        homeRepository.updateUserInfo(*userInfo)
+        viewModelScope.launch {
+            homeRepository.updateUserInfo(*userInfo)
+        }
     }
 
     fun clearUserInfo() {
-        homeRepository.clearUserInfo()
+        viewModelScope.launch {
+            homeRepository.clearUserInfo()
+        }
     }
 
 

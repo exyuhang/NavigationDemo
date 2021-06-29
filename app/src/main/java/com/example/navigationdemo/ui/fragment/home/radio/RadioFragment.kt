@@ -41,9 +41,11 @@ class RadioFragment : BaseFragment<RadioViewModel, FragmentRadioBinding>() {
             loadSir.showLoading()
             mViewModel.loadCarousel(true)
         }
+
         swipeRefresh.init {
             mViewModel.loadCarousel(true)
         }
+
         recyclerView.init(LinearLayoutManager(context), adapter = adapter)
     }
 
@@ -51,7 +53,7 @@ class RadioFragment : BaseFragment<RadioViewModel, FragmentRadioBinding>() {
         loadSir.showLoading()
         mViewBind.click = RadioClick()
         lifecycle.addObserver(RadioViewModel())
-        mViewModel.run {
+        mViewModel?.run {
             radioCarousel.observe(viewLifecycleOwner, Observer {
                 radioPager.initCarousel(it.listData)
                 loadListData(it, adapter, loadSir, recyclerView, swipeRefresh)

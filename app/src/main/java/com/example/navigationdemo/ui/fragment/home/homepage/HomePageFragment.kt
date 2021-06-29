@@ -1,7 +1,6 @@
 package com.example.navigationdemo.ui.fragment.home.homepage
 
 import android.view.View
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.navigationdemo.R
@@ -17,29 +16,36 @@ import com.example.navigationdemo.databinding.FragmentHomepageBinding
  * 2020/12/16 10:31 AM
  */
 class HomePageFragment: BaseFragment<HomeViewModel, FragmentHomepageBinding>(){
+
+    private val homeRecyclerAdapter: HomeRecyclerAdapter by lazy {
+        HomeRecyclerAdapter()
+    }
     private var age: Int = 0
-    private var homeRecyclerAdapter: HomeRecyclerAdapter? = null
     private var listData: MutableList<UserInfo>? = null
-    private var allUserLive: LiveData<List<UserInfo>>? = null
 
     override fun getLayoutId(): Int = R.layout.fragment_homepage
 
     override fun initView(rootView: View) {
         super.initView(rootView)
-        mViewBind.click = ProxyClick()
-        mViewBind.recyclerHome.layoutManager = LinearLayoutManager(requireContext())
-        homeRecyclerAdapter = HomeRecyclerAdapter()
-        mViewBind.recyclerHome.adapter = homeRecyclerAdapter
+        mViewBind?.apply {
+            click = ProxyClick()
+            recyclerHome.layoutManager = LinearLayoutManager(requireContext())
+            recyclerHome.adapter = homeRecyclerAdapter
+        }
     }
 
     private fun queryData(){
-        allUserLive = mViewModel?.getAllUserInfo()
-        allUserLive?.observe(this,
-            Observer<List<UserInfo>> {
+
+        mViewModel?.run {
+            getAllUserInfo().observe(this@HomePageFragment, Observer<List<UserInfo>> {
                 listData = it as MutableList<UserInfo>?
-                homeRecyclerAdapter?.data = it as MutableList<UserInfo>
-                homeRecyclerAdapter?.notifyDataSetChanged()
+                homeRecyclerAdapter?.apply {
+                    data = listData!!
+                    notifyDataSetChanged()
+                }
             })
+        }
+
     }
 
 
@@ -50,15 +56,19 @@ class HomePageFragment: BaseFragment<HomeViewModel, FragmentHomepageBinding>(){
         }
 
         fun delete(){
-            if (listData?.size?:0 > 0){
-                mViewModel.deleteUserInfo(listData?.get(0)!!)
+            listData?.let {
+                if (it.size > 0){
+                    mViewModel.deleteUserInfo(it[0])
+                }
             }
         }
 
         fun update(){
-            if (listData?.size!! > 0){
-                listData?.get(0)?.name = "张四"
-                mViewModel.updateUserInfo(listData?.get(0)!!)
+            listData?.let {
+                if (it.size > 0){
+                    it[0].name = "张四"
+                    mViewModel.updateUserInfo(it[0])
+                }
             }
         }
 

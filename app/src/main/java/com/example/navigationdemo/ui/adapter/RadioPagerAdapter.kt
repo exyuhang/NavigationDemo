@@ -2,10 +2,10 @@ package com.example.navigationdemo.ui.adapter
 
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.example.navigationdemo.R
+import com.example.navigationdemo.app.ext.glide
 import com.example.navigationdemo.data.bean.CarouselBean
 import com.example.navigationdemo.databinding.ItemRadioPagerBinding
 
@@ -22,13 +22,14 @@ class RadioPagerAdapter :
     }
 
     override fun convert(holder: BaseViewHolder, item: CarouselBean) {
-        if (item == null) {
-            return
+
+        item?.apply {
+            holder.getBinding<ItemRadioPagerBinding>()?.let {
+                it.data = this
+                it.ivCarousel.glide(item.imgUrl)
+                it.executePendingBindings()
+            }
         }
-        val binding = holder.getBinding<ItemRadioPagerBinding>()
-        binding?.data = item
-        Glide.with(context).load(item.imgUrl).into(binding?.ivCarousel!!)
-        binding?.executePendingBindings()
     }
 
 

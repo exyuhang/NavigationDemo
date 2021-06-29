@@ -1,5 +1,6 @@
 package com.example.navigationdemo.app.ext
 
+import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.viewpager2.widget.ViewPager2
@@ -8,6 +9,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.example.navigationdemo.R
 import com.example.navigationdemo.data.bean.CarouselBean
+import com.example.navigationdemo.databinding.ItemRadioPagerBinding
 
 /**
  * Created by YuHang
@@ -23,17 +25,22 @@ fun ViewPager2.initCarousel(listData: MutableList<CarouselBean>) {
             }
 
             override fun convert(holder: BaseViewHolder, item: CarouselBean) {
-                if (item == null) {
-                    return
+                item?.let {
+                    holder.getBinding<ItemRadioPagerBinding>()?.apply {
+                        data = it
+                        ivCarousel.glide(it.imgUrl)
+                        executePendingBindings()
+                    }
                 }
-                val binding =
-                    holder.getBinding<com.example.navigationdemo.databinding.ItemRadioPagerBinding>()
-                binding?.data = item
-                Glide.with(context).load(item.imgUrl).into(binding?.ivCarousel!!)
-                binding?.executePendingBindings()
+
             }
 
         }.apply {
             addData(listData)
         }
+
+}
+
+fun ImageView.glide(imgUrl: String){
+    Glide.with(context).load(imgUrl).into(this)
 }

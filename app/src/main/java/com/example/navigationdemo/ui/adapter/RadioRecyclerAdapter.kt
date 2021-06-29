@@ -20,11 +20,13 @@ class RadioRecyclerAdapter: BaseQuickAdapter<CarouselBean, BaseViewHolder>(R.lay
     }
 
     override fun convert(holder: BaseViewHolder, item: CarouselBean) {
-        if (item == null) {
-            return
+
+        item?.apply {
+            holder.getBinding<RecyclerRadioItemBinding>()?.let {
+                it.tvRadioTitle?.text = "第${holder.position}条"
+            }
         }
-        val binding = holder.getBinding<RecyclerRadioItemBinding>()
-        binding?.tvRadioTitle?.text = "第${holder.position}条"
+
     }
 
 

@@ -20,12 +20,14 @@ class HomeRecyclerAdapter: BaseQuickAdapter<UserInfo, BaseViewHolder>(R.layout.r
     }
 
     override fun convert(holder: BaseViewHolder, item: UserInfo) {
-        if (item == null) {
-            return
+
+        item?.apply {
+            holder.getBinding<RecyclerHomeItemBinding>()?.let {
+                it.data = this
+                it.executePendingBindings()
+            }
         }
-        val binding = holder.getBinding<RecyclerHomeItemBinding>()
-        binding?.data = item
-        binding?.executePendingBindings()
+
     }
 
 
