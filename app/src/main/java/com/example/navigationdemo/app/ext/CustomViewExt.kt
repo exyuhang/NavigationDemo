@@ -56,45 +56,46 @@ fun FrameLayout.initTabPage(
     vararg fragments: Fragment
 ) {
     manager.beginTransaction().apply {
-        add(viewID, fragments[0])
-        add(viewID, fragments[1])
-        add(viewID, fragments[2])
-        add(viewID, fragments[3])
-        show(fragments[0]).hide(fragments[1]).hide(fragments[2]).hide(fragments[3]).commit()
+        fragments.forEach {
+            add(viewID, it)
+        }
+        commit()
     }
 
+    showFragment(manager, 0, *fragments)
 
     bottomNavigationItemView.setOnNavigationItemSelectedListener { item ->
         if (item.itemId == R.id.home_homepage) {
-            manager.beginTransaction().apply {
-                show(fragments[0]).hide(fragments[1]).hide(fragments[2]).hide(fragments[3])
-                    .commit()
-            }
-
+            showFragment(manager, 0, *fragments)
         }
 
         if (item.itemId == R.id.home_radio) {
-            manager.beginTransaction().apply {
-                hide(fragments[0]).show(fragments[1]).hide(fragments[2]).hide(fragments[3])
-                    .commit()
-            }
+            showFragment(manager, 1, *fragments)
         }
 
         if (item.itemId == R.id.home_message) {
-            manager.beginTransaction().apply {
-                hide(fragments[0]).hide(fragments[1]).show(fragments[2]).hide(fragments[3])
-                    .commit()
-            }
+            showFragment(manager, 2, *fragments)
         }
 
         if (item.itemId == R.id.home_my) {
-            manager.beginTransaction().apply {
-                hide(fragments[0]).hide(fragments[1]).hide(fragments[2]).show(fragments[3])
-                    .commit()
-            }
+            showFragment(manager, 3, *fragments)
         }
 
         true
+    }
+
+}
+
+fun showFragment(manager: FragmentManager, index: Int, vararg fragments: Fragment) {
+    manager.beginTransaction().apply {
+        for (i in fragments.indices) {
+            if (i == index) {
+                show(fragments[i])
+            } else {
+                hide(fragments[i])
+            }
+        }
+        commit()
     }
 
 }

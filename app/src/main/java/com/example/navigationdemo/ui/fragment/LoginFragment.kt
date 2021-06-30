@@ -1,7 +1,6 @@
 package com.example.navigationdemo.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
@@ -12,6 +11,7 @@ import com.example.navigationdemo.R
 import com.kakayun.lib_frameworkk.base.BaseFragment
 import com.kakayun.lib_frameworkk.base.BaseViewModel
 import com.example.navigationdemo.databinding.FragmentLoginBinding
+import com.kakayun.lib_frameworkk.utils.loge
 
 /**
  * Created by YuHang
@@ -27,7 +27,7 @@ class LoginFragment : BaseFragment<BaseViewModel, FragmentLoginBinding>() {
         mViewBind.click = ProxyClick()
         val bundle =
             findNavController().currentBackStackEntry?.savedStateHandle?.get<Bundle>("bundle")
-        Log.e("回传", bundle?.getString("userName")?:"")
+        bundle?.getString("userName")?:"".loge("回传")
     }
 
     inner class ProxyClick {

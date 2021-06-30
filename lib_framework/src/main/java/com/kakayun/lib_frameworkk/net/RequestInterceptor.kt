@@ -1,8 +1,8 @@
 package com.kakayun.lib_frameworkk.net
 
-import android.util.Log
 import com.kakayun.lib_frameworkk.utils.Md5Utils
 import com.kakayun.lib_frameworkk.utils.UserUtils.getToken
+import com.kakayun.lib_frameworkk.utils.loge
 import okhttp3.FormBody
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -54,16 +54,14 @@ class RequestInterceptor : Interceptor {
                 Md5Utils.toMd5(Md5Utils.toMd5(strSalt) + Md5Utils.toMd5(URLDecoder.decode(value)))
             )
             requestBuilder.method(request.method, newFormBody.build())
-            Log.e(
-                "---newFormBody---",
-                "&sign:" + Md5Utils.toMd5(
-                    Md5Utils.toMd5(strSalt) + Md5Utils.toMd5(
-                        URLDecoder.decode(
-                            value
-                        )
+
+            "&sign:" + Md5Utils.toMd5(
+                Md5Utils.toMd5(strSalt) + Md5Utils.toMd5(
+                    URLDecoder.decode(
+                        value
                     )
-                ).toString() + value
-            )
+                )
+            ) + value.loge("---newFormBody---")
         }
         val newRequest = requestBuilder.build()
         return chain.proceed(newRequest)

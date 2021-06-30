@@ -2,13 +2,13 @@ package com.example.navigationdemo.ui.fragment
 
 import android.os.Bundle
 import android.transition.TransitionInflater
-import android.util.Log
 import android.view.View
 import androidx.navigation.fragment.findNavController
 import com.example.navigationdemo.R
 import com.kakayun.lib_frameworkk.base.BaseFragment
 import com.kakayun.lib_frameworkk.base.BaseViewModel
 import com.example.navigationdemo.databinding.FragmentRegisterBinding
+import com.kakayun.lib_frameworkk.utils.loge
 
 /**
  * Created by YuHang
@@ -25,7 +25,7 @@ class RegisterFragment : BaseFragment<BaseViewModel, FragmentRegisterBinding>() 
         sharedElementEnterTransition = TransitionInflater.from(requireContext())
             .inflateTransition(R.transition.shared_image)
         mViewBind.click = ProxyClick()
-        Log.e("传值", arguments?.getString("userName")!!)
+        arguments?.getString("userName")?:"".loge("传值")
     }
 
     inner class ProxyClick{

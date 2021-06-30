@@ -1,6 +1,5 @@
 package com.example.navigationdemo.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.*
 import com.kakayun.lib_frameworkk.base.BaseViewModel
 import com.kakayun.lib_frameworkk.ext.request
@@ -24,32 +23,32 @@ class RadioViewModel : BaseViewModel(), LifecycleEventObserver, LifecycleObserve
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     private fun onCreate() {
-        Log.e("@LifeCycle", "onCreate")
+        "onCreate".loge("@LifeCycle")
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     private fun onStart() {
-        Log.e("@LifeCycle", "onStart")
+        "onStart".loge("@LifeCycle")
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     private fun onResume() {
-        Log.e("@LifeCycle", "onResume")
+        "onResume".loge("@LifeCycle")
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     private fun onStop() {
-        Log.e("@LifeCycle", "onStop")
+        "onStop".loge("@LifeCycle")
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     private fun onPause() {
-        Log.e("@LifeCycle", "onPause")
+        "onPause".loge("@LifeCycle")
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     private fun onDestroy() {
-        Log.e("@LifeCycle", "onDestroy")
+        "onDestroy".loge("@LifeCycle")
     }
 
     fun loadCarousel(isRefresh: Boolean) {
@@ -87,27 +86,27 @@ class RadioViewModel : BaseViewModel(), LifecycleEventObserver, LifecycleObserve
     override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
         when (event) {
             Lifecycle.Event.ON_CREATE -> {
-                Log.e("LifeCycle", "ON_CREATE")
+                "ON_CREATE".loge("LifeCycle")
             }
 
             Lifecycle.Event.ON_START -> {
-                Log.e("LifeCycle", "ON_START")
+                "ON_START".loge("LifeCycle")
             }
 
             Lifecycle.Event.ON_RESUME -> {
-                Log.e("LifeCycle", "ON_RESUME")
+                "ON_RESUME".loge("LifeCycle")
             }
 
             Lifecycle.Event.ON_PAUSE -> {
-                Log.e("LifeCycle", "ON_PAUSE")
+                "ON_PAUSE".loge("LifeCycle")
             }
 
             Lifecycle.Event.ON_STOP -> {
-                Log.e("LifeCycle", "ON_STOP")
+                "ON_STOP".loge("LifeCycle")
             }
 
             Lifecycle.Event.ON_DESTROY -> {
-                Log.e("LifeCycle", "ON_DESTROY")
+                "ON_DESTROY".loge("LifeCycle")
             }
 
         }
