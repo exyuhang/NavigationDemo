@@ -65,22 +65,13 @@ fun FrameLayout.initTabPage(
     showFragment(manager, 0, *fragments)
 
     bottomNavigationItemView.setOnNavigationItemSelectedListener { item ->
-        if (item.itemId == R.id.home_homepage) {
-            showFragment(manager, 0, *fragments)
-        }
+        when(item.itemId){
+            R.id.home_homepage -> showFragment(manager, 0, *fragments)
+            R.id.home_radio -> showFragment(manager, 1, *fragments)
+            R.id.home_message -> showFragment(manager, 2, *fragments)
+            R.id.home_my -> showFragment(manager, 3, *fragments)
 
-        if (item.itemId == R.id.home_radio) {
-            showFragment(manager, 1, *fragments)
         }
-
-        if (item.itemId == R.id.home_message) {
-            showFragment(manager, 2, *fragments)
-        }
-
-        if (item.itemId == R.id.home_my) {
-            showFragment(manager, 3, *fragments)
-        }
-
         true
     }
 
