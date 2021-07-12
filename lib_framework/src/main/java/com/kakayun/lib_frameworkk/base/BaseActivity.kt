@@ -6,9 +6,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.kakayun.lib_frameworkk.R
 import com.kakayun.lib_frameworkk.ext.dismissLoadingExt
 import com.kakayun.lib_frameworkk.ext.getVmClazz
 import com.kakayun.lib_frameworkk.ext.showLoadingExt
+import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarX
 
 /**
  * Created by YuHang
@@ -21,6 +23,11 @@ abstract class BaseActivity<VM: BaseViewModel, BD: ViewDataBinding>: AppCompatAc
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        UltimateBarX.with(this)
+            .transparent()
+            .light(true)
+            .lvLightColorRes(R.color.black)
+            .applyStatusBar();
         mViewBind = DataBindingUtil.setContentView(this, getLayoutId())
         mViewBind.lifecycleOwner = this
         mViewModel = createViewModel()

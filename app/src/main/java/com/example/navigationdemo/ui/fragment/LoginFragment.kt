@@ -11,6 +11,8 @@ import com.example.navigationdemo.R
 import com.kakayun.lib_frameworkk.base.BaseFragment
 import com.kakayun.lib_frameworkk.base.BaseViewModel
 import com.example.navigationdemo.databinding.FragmentLoginBinding
+import com.example.navigationdemo.ui.activity.AgreementActivity
+import com.kakayun.lib_frameworkk.ext.startActivity
 import com.kakayun.lib_frameworkk.utils.loge
 
 /**
@@ -25,17 +27,22 @@ class LoginFragment : BaseFragment<BaseViewModel, FragmentLoginBinding>() {
 
     override fun initView(rootView: View) {
         mViewBind.click = ProxyClick()
-        val bundle =
-            findNavController().currentBackStackEntry?.savedStateHandle?.get<Bundle>("bundle")
-        bundle?.getString("userName")?:"".loge("回传")
+        findNavController().currentBackStackEntry?.let {
+            it.savedStateHandle.get<Bundle>("bundle")?.apply {
+                getString("userName", "空").loge("回传")
+            }
+        }
     }
 
     inner class ProxyClick {
         fun goRegisterPage() {
-            val extras = FragmentNavigatorExtras(mViewBind.ivLoginImg to "tnRegisterImg")
-            var bundle = Bundle()
-            bundle.putString("userName", "传给注册页面")
-            findNavController().navigate(R.id.to_register_fragment, bundle, null, extras)
+            FragmentNavigatorExtras(mViewBind.ivLoginImg to "tnRegisterImg").let {
+                Bundle().apply {
+                    putString("userName", "传给注册页面")
+                    findNavController().navigate(R.id.to_register_fragment, this, null, it)
+                }
+            }
+
         }
 
         fun goForgetPage() {
@@ -44,13 +51,20 @@ class LoginFragment : BaseFragment<BaseViewModel, FragmentLoginBinding>() {
 
         fun goAgreementPage() {
             var imgPair: Pair<View, String> = Pair(mViewBind.ivLoginImg, "tnAgreeImg")
-            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+            ActivityOptionsCompat.makeSceneTransitionAnimation(
                 requireActivity(), imgPair
-            )
-            val bundle = Bundle()
-            bundle.putString("userName", "传给用户协议页面")
-            val extras = ActivityNavigator.Extras.Builder().setActivityOptions(options).build()
-            findNavController().navigate(R.id.to_agreement_activity, bundle, null, extras)
+            ).let {
+                Bundle().apply {
+                    putString("userName", "传给用户协议页面")
+                    val extras = ActivityNavigator.Extras.Builder().setActivityOptions(it).build()
+                    findNavController().navigate(R.id.to_agreement_activity, this, null, extras)
+                }
+            }
+
+            /*Bundle().apply {
+                putString("userName", "传给用户协议页面")
+                requireContext().startActivity<AgreementActivity>(this)
+            }*/
         }
 
         fun goHomePage(){

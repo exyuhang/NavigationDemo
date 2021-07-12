@@ -1,13 +1,11 @@
 package com.example.navigationdemo.ui.activity
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import com.example.navigationdemo.R
+import com.example.navigationdemo.databinding.ActivityMainBinding
+import com.kakayun.lib_frameworkk.base.BaseActivity
+import com.kakayun.lib_frameworkk.base.BaseViewModel
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity<BaseViewModel, ActivityMainBinding>() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-    }
+    override fun getLayoutId(): Int = R.layout.activity_main
 }

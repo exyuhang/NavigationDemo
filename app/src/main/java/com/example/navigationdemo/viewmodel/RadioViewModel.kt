@@ -3,8 +3,10 @@ package com.example.navigationdemo.viewmodel
 import androidx.lifecycle.*
 import com.kakayun.lib_frameworkk.base.BaseViewModel
 import com.kakayun.lib_frameworkk.ext.request
-import com.example.navigationdemo.data.bean.CarouselBean
+import com.example.navigationdemo.data.bean.AriticleResponse
+import com.example.navigationdemo.data.bean.BannerResponse
 import com.example.navigationdemo.data.repository.httpRepository
+import com.kakayun.lib_frameworkk.livedata.ResultState
 import com.kakayun.lib_frameworkk.net.stateCallback.ListDataUiState
 import com.kakayun.lib_frameworkk.utils.loge
 
@@ -18,7 +20,9 @@ class RadioViewModel : BaseViewModel(), LifecycleEventObserver, LifecycleObserve
     //页码 首页数据页码从0开始
     var pageNo = 0
 
-    var radioCarousel = MutableLiveData<ListDataUiState<CarouselBean>>()
+    var radioAriticleList = MutableLiveData<ListDataUiState<AriticleResponse>>()
+
+    var bannerData = MutableLiveData<ResultState<ArrayList<BannerResponse>>>()
 
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
@@ -51,36 +55,39 @@ class RadioViewModel : BaseViewModel(), LifecycleEventObserver, LifecycleObserve
         "onDestroy".loge("@LifeCycle")
     }
 
-    fun loadCarousel(isRefresh: Boolean) {
+    fun loadArticlelList(isRefresh: Boolean) {
         if (isRefresh){
             pageNo = 0
         }
-        var mapData = mutableMapOf<String, String>()
-        request({ httpRepository.getCarousel(mapData) }, {
+        request({ httpRepository.getArticlelList(pageNo) }, {
             //请求成功
             pageNo++
-            val uiState =
+            val listDataUiState =
                 ListDataUiState(
                     isSuccess = true,
                     isRefresh = isRefresh,
                     isEmpty = it.isEmpty(),
-                    hasMore = false,
+                    hasMore = it.hasMore(),
                     isFirstEmpty = it.isEmpty(),
-                    listData = it
+                    listData = it.datas
                 )
-            radioCarousel.value = uiState
+            radioAriticleList.value = listDataUiState
         }, {
             //请求失败
             "请求失败${it.errorMsg}".loge("网络请求")
-            val uiState =
+            val listDataUiState =
                 ListDataUiState(
                     isSuccess = false,
                     errMessage = it.errorMsg,
                     isRefresh = isRefresh,
-                    listData = arrayListOf<CarouselBean>()
+                    listData = arrayListOf<AriticleResponse>()
                 )
-            radioCarousel.value = uiState
+            radioAriticleList.value = listDataUiState
         })
+    }
+
+    fun loadBannerData(){
+        request({httpRepository.getBannerData()}, bannerData)
     }
 
     override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {

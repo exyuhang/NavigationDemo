@@ -10,9 +10,11 @@ import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.example.navigationdemo.R
-import com.example.navigationdemo.data.bean.CarouselBean
 import com.example.navigationdemo.databinding.ItemRadioPagerBinding
 import androidx.fragment.app.FragmentManager
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestOptions
+import com.example.navigationdemo.data.bean.BannerResponse
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 /**
@@ -21,18 +23,17 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
  * 4/29/21 4:11 PM
  */
 
-fun ViewPager2.initCarousel(listData: MutableList<CarouselBean>) {
+fun ViewPager2.initCarousel(listData: MutableList<BannerResponse>) {
     this.adapter =
-        object : BaseQuickAdapter<CarouselBean, BaseViewHolder>(R.layout.item_radio_pager) {
+        object : BaseQuickAdapter<BannerResponse, BaseViewHolder>(R.layout.item_radio_pager) {
             override fun onItemViewHolderCreated(viewHolder: BaseViewHolder, viewType: Int) {
                 DataBindingUtil.bind<ViewDataBinding>(viewHolder.itemView)
             }
 
-            override fun convert(holder: BaseViewHolder, item: CarouselBean) {
+            override fun convert(holder: BaseViewHolder, item: BannerResponse) {
                 item?.let {
                     holder.getBinding<ItemRadioPagerBinding>()?.apply {
                         data = it
-                        ivCarousel.glide(it.imgUrl)
                         executePendingBindings()
                     }
                 }
@@ -46,7 +47,10 @@ fun ViewPager2.initCarousel(listData: MutableList<CarouselBean>) {
 }
 
 fun ImageView.glide(imgUrl: String) {
-    Glide.with(context).load(imgUrl).into(this)
+    Glide.with(context)
+        .load(imgUrl)
+        .placeholder(R.drawable.icon_banner_place)
+        .into(this)
 }
 
 fun FrameLayout.initTabPage(
@@ -65,7 +69,7 @@ fun FrameLayout.initTabPage(
     showFragment(manager, 0, *fragments)
 
     bottomNavigationItemView.setOnNavigationItemSelectedListener { item ->
-        when(item.itemId){
+        when (item.itemId) {
             R.id.home_homepage -> showFragment(manager, 0, *fragments)
             R.id.home_radio -> showFragment(manager, 1, *fragments)
             R.id.home_message -> showFragment(manager, 2, *fragments)

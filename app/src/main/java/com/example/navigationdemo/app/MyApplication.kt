@@ -3,9 +3,9 @@ package com.example.navigationdemo.app
 import android.app.Application
 import android.content.Context
 import com.kakayun.lib_frameworkk.utils.SharedPreferencesUtils
-import com.kakayun.lib_frameworkk.weight.loadCallBack.EmptyCallback
-import com.kakayun.lib_frameworkk.weight.loadCallBack.ErrorCallback
-import com.kakayun.lib_frameworkk.weight.loadCallBack.LoadingCallback
+import com.kakayun.lib_frameworkk.weight.loadcallback.EmptyCallback
+import com.kakayun.lib_frameworkk.weight.loadcallback.ErrorCallback
+import com.kakayun.lib_frameworkk.weight.loadcallback.LoadingCallback
 import com.kingja.loadsir.callback.SuccessCallback
 import com.kingja.loadsir.core.LoadSir
 

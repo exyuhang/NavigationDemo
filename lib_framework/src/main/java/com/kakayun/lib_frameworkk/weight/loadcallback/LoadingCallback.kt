@@ -1,4 +1,4 @@
-package com.kakayun.lib_frameworkk.weight.loadCallBack
+package com.kakayun.lib_frameworkk.weight.loadcallback
 
 import android.content.Context
 import android.view.View

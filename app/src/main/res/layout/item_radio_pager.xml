@@ -5,7 +5,7 @@
     <data>
         <variable
             name="data"
-            type="com.example.navigationdemo.data.bean.CarouselBean" />
+            type="com.example.navigationdemo.data.bean.BannerResponse" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,11 +14,12 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/iv_Carousel"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toRightOf="parent"
+            glide="@{data.imagePath}"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

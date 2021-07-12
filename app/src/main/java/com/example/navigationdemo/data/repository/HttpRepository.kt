@@ -14,7 +14,9 @@ val httpRepository: HttpRepository by lazy(mode = LazyThreadSafetyMode.SYNCHRONI
 
 class HttpRepository {
 
-    suspend fun getCarousel(mapData: MutableMap<String, String>)
-            = HttpClient.getInstance().getApiService().carousel(mapData)
+    suspend fun getArticlelList(pageNo: Int)
+            = HttpClient.getInstance().getApiService().getArticlelList(pageNo)
+
+    suspend fun getBannerData() = HttpClient.getInstance().getApiService().getBanner()
 
 }

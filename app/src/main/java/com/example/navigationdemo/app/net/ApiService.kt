@@ -1,11 +1,10 @@
 package com.example.navigationdemo.app.net
 
+import com.example.navigationdemo.data.bean.ApiPagerResponse
 import com.example.navigationdemo.data.bean.ApiResponse
-import com.example.navigationdemo.data.bean.CarouselBean
-import com.kakayun.lib_frameworkk.net.Constants
-import retrofit2.http.FieldMap
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.POST
+import com.example.navigationdemo.data.bean.AriticleResponse
+import com.example.navigationdemo.data.bean.BannerResponse
+import retrofit2.http.*
 
 /**
  * Created by YuHang
@@ -17,7 +16,12 @@ interface ApiService {
     /**
      * 轮播图
      */
-    @POST(Constants.CAROUSEL)
-    @FormUrlEncoded
-    suspend fun carousel(@FieldMap mapData: Map<String, String>): ApiResponse<ArrayList<CarouselBean>>
+    @GET("banner/json")
+    suspend fun getBanner(): ApiResponse<ArrayList<BannerResponse>>
+
+    /**
+     * 文章列表
+     */
+    @GET("article/list/{page}/json")
+    suspend fun getArticlelList(@Path("page") pageNo: Int): ApiResponse<ApiPagerResponse<ArrayList<AriticleResponse>>>
 }

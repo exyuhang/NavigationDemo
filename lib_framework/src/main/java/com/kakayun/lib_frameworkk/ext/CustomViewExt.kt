@@ -1,14 +1,18 @@
 package com.kakayun.lib_frameworkk.ext
 
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
-import com.kakayun.lib_frameworkk.weight.loadCallBack.EmptyCallback
-import com.kakayun.lib_frameworkk.weight.loadCallBack.ErrorCallback
-import com.kakayun.lib_frameworkk.weight.loadCallBack.LoadingCallback
+import com.kakayun.lib_frameworkk.weight.loadcallback.EmptyCallback
+import com.kakayun.lib_frameworkk.weight.loadcallback.ErrorCallback
+import com.kakayun.lib_frameworkk.weight.loadcallback.LoadingCallback
 import com.kakayun.lib_frameworkk.R
 import com.kakayun.lib_frameworkk.net.stateCallback.ListDataUiState
 import com.kingja.loadsir.core.LoadService
@@ -111,10 +115,23 @@ fun <T> loadListData(
 }
 
 //初始化 SwipeRefreshLayout
-fun SwipeRefreshLayout.init(onRefreshListener: () -> Unit) {
+fun SwipeRefreshLayout.refresh(onRefreshListener: () -> Unit) {
     this.run {
         setOnRefreshListener {
             onRefreshListener.invoke()
         }
     }
+}
+
+inline fun<reified T: AppCompatActivity> Context.startActivity(bundle: Bundle){
+    var intent = Intent(this, T::class.java)
+    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    bundle?.let {
+        intent.putExtra("bundle", bundle)
+    }
+    startActivity(intent)
+}
+
+fun getBundle(intent: Intent): Bundle?{
+    return intent.getBundleExtra("bundle")
 }

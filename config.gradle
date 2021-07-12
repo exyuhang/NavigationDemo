@@ -3,7 +3,7 @@ ext {
     android = [
             compileSdkVersion      : 30,
             buildToolsVersion      : "30.0.2",
-            applicationId          : "com.kakayun.wifi",
+            applicationId          : "com.hyh.mvvm",
             minSdkVersion          : 21,
             targetSdkVersion       : 30,
             versionCode            : 1,

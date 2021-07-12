@@ -1,7 +1,12 @@
 package com.kakayun.lib_frameworkk.ext
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.kakayun.lib_frameworkk.base.BaseFragment
 import com.kakayun.lib_frameworkk.base.BaseViewModel
+import com.kakayun.lib_frameworkk.livedata.ResultState
+import com.kakayun.lib_frameworkk.livedata.paresException
+import com.kakayun.lib_frameworkk.livedata.paresResult
 import com.kakayun.lib_frameworkk.net.AppException
 import com.kakayun.lib_frameworkk.net.BaseResponse
 import com.kakayun.lib_frameworkk.net.ExceptionHandle
@@ -65,6 +70,33 @@ fun <T> BaseViewModel.request(
 }
 
 /**
+ * net request 不校验请求结果数据是否是成功
+ * @param block 请求体方法
+ * @param resultState 请求回调的ResultState数据
+ * @param isShowDialog 是否显示加载框
+ * @param loadingMessage 加载框提示内容
+ */
+fun <T> BaseViewModel.request(
+    block: suspend () -> BaseResponse<T>,
+    resultState: MutableLiveData<ResultState<T>>,
+    isShowDialog: Boolean = false,
+    loadingMessage: String = "请求网络中..."
+): Job {
+    return viewModelScope.launch {
+        runCatching {
+            if (isShowDialog) resultState.value = ResultState.onAppLoading(loadingMessage)
+            //请求体
+            block()
+        }.onSuccess {
+            resultState.paresResult(it)
+        }.onFailure {
+            it.message?.loge()
+            resultState.paresException(it)
+        }
+    }
+}
+
+/**
  * 请求结果过滤，判断请求服务器请求结果是否成功，不成功则会抛出异常
  */
 suspend fun <T> executeResponse(
@@ -83,6 +115,36 @@ suspend fun <T> executeResponse(
                     response.getResponseMsg()
                 )
             }
+        }
+    }
+}
+
+/**
+ * 显示页面状态，这里有个技巧，成功回调在第一个，其后两个带默认值的回调可省
+ * @param resultState 接口返回值
+ * @param onLoading 加载中
+ * @param onSuccess 成功回调
+ * @param onError 失败回调
+ *
+ */
+fun <T> BaseFragment<*, *>.parseState(
+    resultState: ResultState<T>,
+    onSuccess: (T) -> Unit,
+    onError: ((AppException) -> Unit)? = null,
+    onLoading: (() -> Unit)? = null
+) {
+    when (resultState) {
+        is ResultState.Loading -> {
+            showLoading(resultState.loadingMessage)
+            onLoading?.invoke()
+        }
+        is ResultState.Success -> {
+            dismissLoading()
+            onSuccess(resultState.data)
+        }
+        is ResultState.Error -> {
+            dismissLoading()
+            onError?.run { this(resultState.error) }
         }
     }
 }

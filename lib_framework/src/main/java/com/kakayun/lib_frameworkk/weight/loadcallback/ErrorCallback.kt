@@ -1,13 +1,13 @@
-package com.kakayun.lib_frameworkk.weight.loadCallBack
+package com.kakayun.lib_frameworkk.weight.loadcallback
 
 import com.kakayun.lib_frameworkk.R
 import com.kingja.loadsir.callback.Callback
 
 
-class EmptyCallback : Callback() {
+class ErrorCallback : Callback() {
 
     override fun onCreateView(): Int {
-        return R.layout.layout_empty
+        return R.layout.layout_error
     }
 
 }
