@@ -14,7 +14,6 @@ import com.kakayun.lib_frameworkk.ext.*
 import com.kakayun.lib_frameworkk.ext.init
 import com.kakayun.lib_frameworkk.weight.recyclerview.DefineLoadMoreView
 import com.kingja.loadsir.core.LoadService
-import com.yanzhenjie.recyclerview.SwipeRecyclerView
 import kotlinx.android.synthetic.main.include_recyclerview.*
 import kotlinx.android.synthetic.main.layout_banner.view.*
 
