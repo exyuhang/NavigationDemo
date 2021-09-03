@@ -1,4 +1,4 @@
-package com.example.navigationdemo.app
+package com.kakayun.lib_frameworkk.base
 
 import android.app.Application
 import android.content.Context

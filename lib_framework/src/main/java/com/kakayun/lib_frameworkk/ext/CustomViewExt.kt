@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -134,4 +135,28 @@ inline fun<reified T: AppCompatActivity> Context.startActivity(bundle: Bundle){
 
 fun getBundle(intent: Intent): Bundle?{
     return intent.getBundleExtra("bundle")
+}
+
+fun Context.toast(context: Context, msg: String){
+    Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+}
+
+private var hash: Int = 0
+private var lastClickTime: Long = 0
+private var SPACE_TIME: Long = 3000
+
+infix fun View.onClick(clickAction: () -> Unit){
+    this.setOnClickListener {
+        if (this.hashCode() != hash) {
+            hash = this.hashCode()
+            lastClickTime = System.currentTimeMillis()
+            clickAction()
+        } else {
+            val currentTime = System.currentTimeMillis()
+            if (currentTime - lastClickTime > SPACE_TIME) {
+                lastClickTime = System.currentTimeMillis()
+                clickAction()
+            }
+        }
+    }
 }

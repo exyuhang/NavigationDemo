@@ -2,7 +2,7 @@ package com.example.navigationdemo.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.example.navigationdemo.app.MyApplication
+import com.kakayun.lib_frameworkk.base.MyApplication
 import com.kakayun.lib_frameworkk.base.BaseViewModel
 import com.example.navigationdemo.app.room.UserInfo
 import com.example.navigationdemo.data.repository.LocalRepository

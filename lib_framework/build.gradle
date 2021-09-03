@@ -90,5 +90,6 @@ dependencies {
     // optional - Test helpers
     api "androidx.room:room-testing:$room_version"
 
-    api 'com.zackratos.ultimatebarx:ultimatebarx:0.6.0'
+    api "com.zackratos.ultimatebarx:ultimatebarx:0.6.0"
+
 }

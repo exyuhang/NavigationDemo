@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.PorterDuff
 import android.os.Build
-import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -103,7 +102,6 @@ class DefineLoadMoreView(context: Context) : LinearLayout(context), SwipeRecycle
         mTvMessage.visibility = View.VISIBLE
         // 这里要不直接设置错误信息，要不根据errorCode动态设置错误数据。
         mTvMessage.text = errorMessage
-        Log.i("hgj","加载失败啦")
     }
 
     /**
